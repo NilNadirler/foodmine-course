@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { FoodService } from './../../../services/food.service';
 import { Food } from './../../../shared/models/food';
 import { Component, OnInit } from '@angular/core';
@@ -13,14 +14,19 @@ export class HomeComponent implements OnInit {
 
   foods:Food[]=[]
 
-  constructor(private foodService:FoodService, activatedRoute:ActivatedRoute) {
+  constructor(private foodService:FoodService, activatedRoute:ActivatedRoute, ) {
+    let foodsObservable:Observable<Food[]>
     activatedRoute.params.subscribe((params)=>{
       if(params.searchTerm)
-      this.foods= this.foodService.getAllFoodsBySearchTerm(params.searchTerm)
+      foodsObservable= this.foodService.getAllFoodsBySearchTerm(params.searchTerm)
       else if(params.tag)
-      this.foods=this.foodService.getAllFoodsByTag(params.tag)
+      foodsObservable=this.foodService.getAllFoodsByTag(params.tag)
       else
-        this.foods = this.foodService.getAll()
+      foodsObservable = this.foodService.getAll()
+
+      foodsObservable.subscribe((serverFoods)=>{
+        this.foods = serverFoods;
+      })
       
     })
    
