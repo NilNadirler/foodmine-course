@@ -90,7 +90,7 @@ export const sample_foods: any[] = [
     {
       name: "Jane Doe",
       email: "Jane@gmail.com",
-      password: "12345",
+      password: "NilAda_0707",
       address: "Shanghai",
       isAdmin: false,
     },

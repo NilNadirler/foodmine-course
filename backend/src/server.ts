@@ -2,6 +2,7 @@ import { sample_users } from './data';
 import { sample_foods, sample_tags } from './../../frontend/src/data';
 import express from "express"
 import cors from "cors";
+import jwt from "jsonwebtoken"
 
 const app = express()
 app.use(express.json())
@@ -46,10 +47,23 @@ app.get("/api/foods/:foodId", (req, res)=>{
 })
 
 app.post("/api/users/login", (req,res)=>{
-    const body = req.body;
     const{email,password}= req.body
-    const user = sample_users.find(user => user.email === email && user.password ===password)
+    const user = sample_users.find(user => user.email === email && user.password === password)
     if(user){
-        res.send();
+        res.send(generateTokenResponse(user));
+    }else{
+        res.status(400).send("Username or password is not valid")
     }
 })
+
+const generateTokenResponse =(user:any)=>{ 
+    const token = jwt.sign({
+        email:user.email, isAdmin:user.isAdmin
+    }, "SomeRandomText",{
+        expiresIn:"30d"
+    })
+
+    user.token = token;
+    return user;
+}
+
