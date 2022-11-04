@@ -10,8 +10,6 @@ process.env.MONGO_URI
 import { dbConnect } from "./config/database.congif";
 dbConnect();
 
-
-
 const app = express()
 app.use(express.json())
 app.use(cors({
