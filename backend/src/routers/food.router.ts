@@ -39,21 +39,45 @@ router.get("/search/:searchTerm", asyncHandler(
     }
 ))
 
-router.get("/tags", (req,res)=>{
-    res.send(sample_tags)
-})
+router.get("/tags", asyncHandler(
+    async (req,res)=>{
+        const tags = await FoodModel.aggregate([
+            {
+                $unwind:'$tags'
+            },
+            {
+                $group:{
+                    _id:'$tags',
+                    count:{$sum:1}
+                }
+            },
+            {
+                $project:{
+                    _id:0,
+                    name:'$_id',
+                    count:'$count'
+                }
+            }
+        ]).sort({count:-1});
+        const all={
+            name:'ALL',
+            count: await FoodModel.countDocuments()
+        }
+        tags.unshift(all);
+        res.send(tags);
+    }
+))
 
-router.get("/tag/:tagName", (req,res)=>{
-    const tagName = req.params.tagName;
-    const tags = sample_tags.filter(tag => tag.name?.toLowerCase()
-    .includes(tagName.toLowerCase()));
-    res.send(tags)
-})
+router.get("/tag/:tagName", asyncHandler(
+    async(req,res)=>{
+        const foods = await FoodModel.find({tags:req.params.tagName})
+        res.send(foods)
+    }
+))
 
-router.get("/:foodId", (req, res)=>{
-    const foodId = req.params.foodId;
-    const food = sample_foods.find(food => food.id==foodId)
-    res.send(food)
+router.get("/:foodId", async(req,res)=>{
+  const food = await FoodModel.findById(req.params.foodId)
+  res.send(food)
 })
 
 export default router;
