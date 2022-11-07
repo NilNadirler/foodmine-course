@@ -16,18 +16,24 @@ const USER_KEY = 'User'
 export class UserService {
  
 
-  private userSubject = new BehaviorSubject<User>(new User());
+  private userSubject = new BehaviorSubject<User>(this.getUserFromLocalStorage());
   public userObservable:Observable<User>
 
   constructor(private http:HttpClient, private toastrService:ToastrService) { 
         this.userObservable = this.userSubject.asObservable();
   }
 
+  public get currentUser():User{
+    return this.userSubject.value;
+  }
+
+
   login(userLogin: IUserLogin):Observable<User>{
     return this.http.post<User>(USER_LOGIN_URL, userLogin).pipe(
       tap({
         next: (user)=>{
           this.userSubject.next(user);
+          console.log(user)
           this.toastrService.success(
             `Welcome to Foodmine ${user.name}! `,
             'Login Successful'
@@ -68,10 +74,13 @@ export class UserService {
 
   private setUserToLocalStorage(user:User){
     localStorage.setItem(USER_KEY, JSON.stringify(user))
+    console.log(USER_KEY)
   }
 
   private getUserFromLocalStorage():User{
     const userJson = localStorage.getItem(USER_KEY);
+    console.log(userJson)
+
     if(userJson) return JSON.parse(userJson) as User;
     return new User();
   }

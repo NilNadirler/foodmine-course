@@ -1,3 +1,4 @@
+import { CheckoutPageComponent } from './components/pages/checkout-page/checkout-page.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { CartPageComponent } from './components/pages/cart-page/cart-page.component';
 
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path:'cart-page', component:CartPageComponent},
   {path:'login', component:LoginPageComponent},
   {path:'register', component: RegisterComponent},
+  {path:'checkout', component:CheckoutPageComponent}
 ];
 
 @NgModule({

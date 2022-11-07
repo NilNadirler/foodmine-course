@@ -24,7 +24,9 @@ import { TextInputComponent } from './components/partials/text-input/text-input.
 import { DefaultButtonComponent } from './components/partials/default-button/default-button.component';
 import { InputValidationComponent } from './components/partials/input-validation/input-validation.component';
 import { RegisterComponent } from './components/pages/register/register.component';
-import { LoadingComponent } from './components/partials/loading/loading.component'
+import { LoadingComponent } from './components/partials/loading/loading.component';
+import { CheckoutPageComponent } from './components/pages/checkout-page/checkout-page.component';
+import { OrderItemsListComponent } from './components/partials/order-items-list/order-items-list.component'
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { LoadingComponent } from './components/partials/loading/loading.componen
     DefaultButtonComponent,
     InputValidationComponent,
     RegisterComponent,
-    LoadingComponent
+    LoadingComponent,
+    CheckoutPageComponent,
+    OrderItemsListComponent
   ],
   imports: [
     BrowserModule,
