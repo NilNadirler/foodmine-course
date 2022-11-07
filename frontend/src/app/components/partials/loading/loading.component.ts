@@ -13,7 +13,7 @@ export class LoadingComponent implements OnInit {
 
   constructor(loadingService:LoadingService) {
     loadingService.isLoading.subscribe((isLoading)=>{
-       isLoading = isLoading;
+       this.isLoading = isLoading;
     });
     loadingService.showLoading();
    }
