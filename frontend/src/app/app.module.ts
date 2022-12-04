@@ -29,6 +29,8 @@ import { CheckoutPageComponent } from './components/pages/checkout-page/checkout
 import { OrderItemsListComponent } from './components/partials/order-items-list/order-items-list.component';
 import { MapComponent } from './components/partials/map/map.component';
 import { CommonModule } from '@angular/common';
+import { AuthInterceptor } from './auth/guards/auth.interceptor';
+import { PaymentPageComponent } from './components/pages/payment-page/payment-page.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,7 @@ import { CommonModule } from '@angular/common';
     CheckoutPageComponent,
     OrderItemsListComponent,
     MapComponent,
+    PaymentPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,6 +70,7 @@ import { CommonModule } from '@angular/common';
     }),
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
