@@ -14,11 +14,11 @@ import { FoodPageComponent } from './components/pages/food-page/food-page.compon
 import { CartPageComponent } from './components/pages/cart-page/cart-page.component';
 import { TitleComponent } from './components/partials/title/title.component';
 import { NotFoundComponent } from './components/partials/not-found/not-found.component';
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
-import { LoginPageComponent } from './components/login-page/login-page.component'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoginPageComponent } from './components/login-page/login-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {ToastrModule} from 'ngx-toastr'
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InputContainerComponent } from './components/partials/input-container/input-container.component';
 import { TextInputComponent } from './components/partials/text-input/text-input.component';
 import { DefaultButtonComponent } from './components/partials/default-button/default-button.component';
@@ -28,7 +28,7 @@ import { LoadingComponent } from './components/partials/loading/loading.componen
 import { CheckoutPageComponent } from './components/pages/checkout-page/checkout-page.component';
 import { OrderItemsListComponent } from './components/partials/order-items-list/order-items-list.component';
 import { MapComponent } from './components/partials/map/map.component';
-
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -51,7 +51,6 @@ import { MapComponent } from './components/partials/map/map.component';
     CheckoutPageComponent,
     OrderItemsListComponent,
     MapComponent,
-   
   ],
   imports: [
     BrowserModule,
@@ -62,16 +61,14 @@ import { MapComponent } from './components/partials/map/map.component';
     ReactiveFormsModule,
     FormsModule,
     ToastrModule.forRoot({
-      timeOut:3000,
-      positionClass:'toast-top-right',
-      newestOnTop:false
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+      newestOnTop: false,
     }),
-  
- 
   ],
   providers: [
-    {provide:HTTP_INTERCEPTORS, useClass:LoadingInterceptor, multi:true}
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
